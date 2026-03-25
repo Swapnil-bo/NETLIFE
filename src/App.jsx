@@ -1,35 +1,101 @@
+import { useState, useEffect } from 'react'
 import './App.css'
 
+const TITLES = ["Drama", "Thriller", "Dark Comedy", "Mystery", "Crime Saga"]
+
 function App() {
+  const [genre, setGenre] = useState(0)
+  const [visible, setVisible] = useState(true)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setVisible(false)
+      setTimeout(() => {
+        setGenre(g => (g + 1) % TITLES.length)
+        setVisible(true)
+      }, 400)
+    }, 2000)
+    return () => clearInterval(interval)
+  }, [])
+
   return (
-    <div className="min-h-screen bg-black text-white">
-      {/* Netflix-style top bar */}
-      <nav className="px-8 py-4 flex items-center justify-between">
-        <h1 className="text-red-600 text-3xl font-black tracking-wider">NETLIFE</h1>
-        <span className="text-gray-400 text-sm">Your Life. Dramatized.</span>
+    <div className="netlife-root">
+      {/* Grain overlay */}
+      <div className="grain" />
+
+      {/* Ambient blobs */}
+      <div className="blob blob-1" />
+      <div className="blob blob-2" />
+      <div className="blob blob-3" />
+
+      {/* Nav */}
+      <nav className="nav">
+        <div className="logo">
+          <span className="logo-n">N</span>ETLIFE
+        </div>
+        <div className="nav-right">
+          <span className="nav-tag">★ ORIGINAL SERIES</span>
+        </div>
       </nav>
 
-      {/* Hero Section */}
-      <div className="relative flex flex-col items-center justify-center text-center px-4 py-24">
-        {/* Background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-900 to-black opacity-90 z-0" />
-
-        <div className="relative z-10 max-w-3xl mx-auto">
-          <p className="text-red-500 uppercase tracking-widest text-sm font-semibold mb-4">
-            Netflix Original Series
-          </p>
-          <h2 className="text-5xl md:text-7xl font-black mb-6 leading-tight">
-            Your Life as a
-            <span className="text-red-600"> Netflix Series</span>
-          </h2>
-          <p className="text-gray-400 text-lg md:text-xl mb-10 max-w-xl mx-auto">
-            Enter a few details about your life. We'll turn it into a full Netflix show — title, cast, episodes, trailer and all.
-          </p>
-          <button className="bg-red-600 hover:bg-red-700 transition-colors text-white font-bold text-lg px-10 py-4 rounded">
-            🎬 Create My Show
-          </button>
-          <p className="text-gray-600 text-xs mt-4">Powered by local AI · No data leaves your device</p>
+      {/* Hero */}
+      <main className="hero">
+        {/* Eyebrow */}
+        <div className="eyebrow">
+          <span className="eyebrow-dot" />
+          NOW STREAMING YOUR LIFE
+          <span className="eyebrow-dot" />
         </div>
+
+        {/* Main headline */}
+        <h1 className="headline">
+          <span className="headline-top">Your Life as a</span>
+          <span className="headline-bottom">
+            <span className="red-stroke">Netflix</span> Series
+          </span>
+        </h1>
+
+        {/* Genre ticker */}
+        <div className="genre-ticker">
+          A{" "}
+          <span className={`genre-word ${visible ? 'genre-in' : 'genre-out'}`}>
+            {TITLES[genre]}
+          </span>
+          {" "}in the making
+        </div>
+
+        {/* Description */}
+        <p className="description">
+          Drop a few details about your life. Our local AI transforms it into<br />
+          a full Netflix concept — title, cast, episode guide, trailer script.
+        </p>
+
+        {/* CTA */}
+        <div className="cta-group">
+          <button className="cta-primary">
+            <span className="cta-icon">▶</span>
+            Create My Show
+          </button>
+          <button className="cta-secondary">
+            See an Example
+          </button>
+        </div>
+
+        {/* Trust bar */}
+        <div className="trust-bar">
+          <span>🔒 Runs 100% locally</span>
+          <span className="trust-divider">·</span>
+          <span>⚡ Powered by Mistral 7B</span>
+          <span className="trust-divider">·</span>
+          <span>🎬 No data leaves your device</span>
+        </div>
+      </main>
+
+      {/* Bottom film strip */}
+      <div className="filmstrip">
+        {Array.from({length: 20}).map((_, i) => (
+          <div key={i} className="film-hole" />
+        ))}
       </div>
     </div>
   )
