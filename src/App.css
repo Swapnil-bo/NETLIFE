@@ -301,72 +301,234 @@ body { background: var(--black); color: var(--text); overflow-x: hidden; }
   padding-left: 2px;
 }
 
-/* ── Loading Screen ── */
-.loading-overlay {
+/* ══════════════════════════════════════
+   LOADING SCREEN — GOD MODE
+══════════════════════════════════════ */
+.ls-root {
   position: fixed; inset: 0; z-index: 60;
-  background: rgba(0,0,0,0.92);
-  backdrop-filter: blur(16px);
-  display: flex; align-items: center; justify-content: center;
-  animation: fadeUp 0.4s ease both;
-}
-
-.loading-inner {
+  background: #040404;
   display: flex; flex-direction: column;
-  align-items: center; gap: 28px;
-  text-align: center; padding: 24px;
+  align-items: center; justify-content: center;
+  overflow: hidden;
+  animation: fadeUp 0.3s ease both;
 }
 
-/* Spinner */
-.loading-spinner {
-  position: relative;
-  width: 80px; height: 80px;
-  display: flex; align-items: center; justify-content: center;
-}
-.spinner-ring {
-  position: absolute; inset: 0;
-  border-radius: 50%;
-  border: 2px solid var(--border);
-  border-top-color: var(--red);
-  animation: spin 1s linear infinite;
-}
-.spinner-icon {
-  font-size: 1.8rem; z-index: 1;
-  animation: pulse 2s ease-in-out infinite;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50%       { transform: scale(1.15); }
+/* Scan line sweep */
+.ls-scanline {
+  position: absolute; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(229,9,20,0.15), transparent);
+  pointer-events: none; z-index: 5;
+  transition: top 0.03s linear;
 }
 
-/* Message */
-.loading-msg {
+/* Static scanlines */
+.ls-scanlines-static {
+  position: absolute; inset: 0; z-index: 4;
+  pointer-events: none; opacity: 0.03;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,1) 2px,
+    rgba(0,0,0,1) 4px
+  );
+}
+
+/* Vignette */
+.ls-vignette {
+  position: absolute; inset: 0; z-index: 3;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.85) 100%);
+}
+
+/* Clap flash */
+.ls-clap-flash {
+  position: absolute; inset: 0; z-index: 10;
+  background: rgba(255,255,255,0.06);
+  animation: flashOut 0.3s ease forwards;
+  pointer-events: none;
+}
+@keyframes flashOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* ── HUD bars ── */
+.ls-hud-top, .ls-hud-bottom {
+  position: absolute; left: 0; right: 0;
+  display: flex; align-items: center;
+  padding: 14px 28px; z-index: 6;
+  border-color: rgba(255,255,255,0.06);
+}
+.ls-hud-top {
+  top: 0; justify-content: space-between;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent);
+}
+.ls-hud-bottom {
+  bottom: 0; justify-content: center;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+}
+
+.ls-hud-left  { display: flex; align-items: center; gap: 8px; }
+.ls-hud-center { position: absolute; left: 50%; transform: translateX(-50%); }
+
+.ls-rec-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--red);
+  animation: recPulse 1s ease-in-out infinite;
+}
+@keyframes recPulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 6px var(--red); }
+  50%       { opacity: 0.3; box-shadow: none; }
+}
+.ls-rec-text {
+  font-size: 0.62rem; letter-spacing: 0.25em;
+  color: var(--red); font-weight: 700;
+}
+.ls-timecode {
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem; letter-spacing: 0.15em;
+  color: #555;
+}
+.ls-hud-tag {
+  font-size: 0.58rem; letter-spacing: 0.22em;
+  color: #333; text-transform: uppercase;
+}
+
+/* ── Center content ── */
+.ls-center {
+  position: relative; z-index: 6;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 36px;
+  text-align: center; padding: 20px;
+}
+
+/* ── Clapperboard ── */
+.ls-clapper {
+  width: 260px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 4px; overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 40px rgba(229,9,20,0.1);
+  animation: clapperFloat 4s ease-in-out infinite;
+}
+@keyframes clapperFloat {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+.ls-clapper-top {
+  height: 44px; overflow: hidden;
+  background: #111;
+}
+.ls-clapper-stripes {
+  display: flex; height: 100%;
+  transform: skewX(-12deg) translateX(-10px);
+}
+.ls-stripe { flex: 1; }
+.ls-stripe-b { background: #111; }
+.ls-stripe-w { background: var(--red); opacity: 0.9; }
+
+.ls-clapper-body {
+  background: #0d0d0d; padding: 14px 16px;
+  display: flex; flex-direction: column; gap: 10px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.ls-clapper-row {
+  display: flex; gap: 0;
+}
+.ls-clapper-cell {
+  flex: 1; display: flex; flex-direction: column; gap: 3px;
+  padding: 0 8px;
+  border-right: 1px solid rgba(255,255,255,0.05);
+}
+.ls-clapper-cell:last-child { border-right: none; }
+.ls-clapper-label {
+  font-size: 0.52rem; letter-spacing: 0.2em;
+  color: #444; text-transform: uppercase;
+}
+.ls-clapper-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem; letter-spacing: 0.1em;
+  color: var(--text);
+}
+
+/* ── Stage message ── */
+.ls-stage-wrap {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 8px; min-height: 64px;
+}
+.ls-stage-code {
+  font-size: 0.6rem; letter-spacing: 0.35em;
+  color: var(--red); text-transform: uppercase;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.ls-stage-msg {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 1.6rem; letter-spacing: 0.08em;
   color: var(--text);
-  transition: opacity 0.35s ease, transform 0.35s ease;
-  min-height: 2rem;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
-.msg-in  { opacity: 1; transform: translateY(0); }
-.msg-out { opacity: 0; transform: translateY(-8px); }
+.ls-in  { opacity: 1; transform: translateY(0); }
+.ls-out { opacity: 0; transform: translateY(-6px); }
 
-/* Progress bar */
-.loading-bar {
-  width: 280px; height: 2px;
-  background: var(--border); border-radius: 2px;
-  overflow: hidden;
+/* ── Progress ── */
+.ls-progress-wrap {
+  display: flex; align-items: center; gap: 14px; width: 300px;
 }
-.loading-bar-fill {
-  height: 100%; width: 0%;
-  background: var(--red);
+.ls-progress-track {
+  flex: 1; height: 2px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px; position: relative;
+  overflow: visible;
+}
+.ls-progress-fill {
+  height: 100%; background: var(--red);
   border-radius: 2px;
-  animation: fillBar 18s linear forwards;
+  transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
-@keyframes fillBar { from { width: 0%; } to { width: 90%; } }
+.ls-progress-glow {
+  position: absolute; top: 50%; transform: translate(-50%, -50%);
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 0 12px var(--red), 0 0 24px rgba(229,9,20,0.4);
+  transition: left 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.ls-progress-pct {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem; color: #555;
+  letter-spacing: 0.05em; min-width: 36px;
+  text-align: right;
+}
 
-.loading-sub {
-  font-size: 0.75rem; color: var(--muted);
-  letter-spacing: 0.1em; text-transform: uppercase;
+/* ── Checklist ── */
+.ls-checklist {
+  display: flex; gap: 6px; flex-wrap: wrap;
+  justify-content: center; max-width: 340px;
+}
+.ls-check-item {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 0.58rem; letter-spacing: 0.12em;
+  text-transform: uppercase; padding: 4px 8px;
+  border-radius: 2px; border: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+.ls-check-icon { font-size: 0.55rem; }
+
+.ls-done {
+  color: #3a3a3a; border-color: rgba(255,255,255,0.04);
+}
+.ls-done .ls-check-icon { color: #2a6a2a; }
+
+.ls-active {
+  color: var(--text); border-color: rgba(229,9,20,0.3);
+  background: rgba(229,9,20,0.06);
+}
+.ls-active .ls-check-icon { color: var(--red); }
+
+.ls-pending {
+  color: #2a2a2a; border-color: rgba(255,255,255,0.03);
 }
 
 /* ── Error Banner ── */
