@@ -288,3 +288,15 @@ body { background: var(--black); color: var(--text); overflow-x: hidden; }
   transition: color 0.2s;
 }
 .form-cancel:hover { color: var(--text); }
+
+/* ── Validation ── */
+.field-error {
+  border-color: rgba(229,9,20,0.6) !important;
+  box-shadow: 0 0 0 3px rgba(229,9,20,0.1) !important;
+}
+.error-msg {
+  font-size: 0.72rem;
+  color: var(--red);
+  letter-spacing: 0.04em;
+  padding-left: 2px;
+}
