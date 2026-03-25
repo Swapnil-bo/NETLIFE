@@ -3,6 +3,7 @@ import './App.css'
 import InputForm from './components/InputForm'
 import LoadingScreen from './components/LoadingScreen'
 import { generateShowConcept } from './utils/ollama'
+import ShowCard from './components/ShowCard'
 
 const TITLES = ["Drama", "Thriller", "Dark Comedy", "Mystery", "Crime Saga"]
 
@@ -112,17 +113,7 @@ function App() {
         </main>
       )}
 
-      {/* Output placeholder — next step */}
-      {showData && (
-        <div style={{color:'#fff', padding:'60px', textAlign:'center'}}>
-          <p style={{color:'var(--red)', fontFamily:'Bebas Neue', fontSize:'2rem'}}>
-            ✅ SHOW GENERATED!
-          </p>
-          <pre style={{color:'#666', fontSize:'0.7rem', marginTop:'20px', textAlign:'left', maxWidth:'600px', margin:'20px auto', overflow:'auto'}}>
-            {JSON.stringify(showData, null, 2).slice(0, 500)}...
-          </pre>
-        </div>
-      )}
+      {showData && <ShowCard data={showData} onReset={handleReset} />}
 
       <div className="filmstrip">
         {Array.from({length: 20}).map((_, i) => (

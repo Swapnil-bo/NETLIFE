@@ -384,3 +384,73 @@ body { background: var(--black); color: var(--text); overflow-x: hidden; }
   background: none; border: none;
   color: #ff6b6b; cursor: pointer; font-size: 1rem;
 }
+
+/* ── Show Card ── */
+.showcard-root {
+  position: relative; z-index: 10;
+  padding-bottom: 60px;
+  animation: fadeUp 0.6s ease both;
+}
+
+/* ── Banner ── */
+.showcard-banner {
+  position: relative;
+  min-height: 480px;
+  background: linear-gradient(135deg, #1a0000 0%, #0d0d0d 50%, #000 100%);
+  display: flex; align-items: flex-end;
+  padding: 60px 64px;
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+.showcard-banner::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(229,9,20,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(229,9,20,0.08) 0%, transparent 50%);
+  pointer-events: none;
+}
+.banner-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(8,8,8,0.95) 0%, transparent 60%);
+}
+.banner-content {
+  position: relative; z-index: 2;
+  max-width: 700px;
+}
+.banner-eyebrow {
+  font-size: 0.65rem; letter-spacing: 0.3em;
+  color: var(--red); text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.banner-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.5rem, 8vw, 7rem);
+  line-height: 0.95; letter-spacing: 0.03em;
+  color: var(--text); margin-bottom: 16px;
+  text-shadow: 0 4px 40px rgba(0,0,0,0.8);
+}
+.banner-tagline {
+  font-size: 1.1rem; color: #aaa;
+  font-style: italic; margin-bottom: 20px;
+  max-width: 520px; line-height: 1.5;
+}
+.banner-meta {
+  display: flex; gap: 10px; flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.badge {
+  font-size: 0.7rem; letter-spacing: 0.12em;
+  text-transform: uppercase; padding: 5px 12px;
+  border-radius: 2px; font-weight: 600;
+}
+.badge-red { background: var(--red); color: #fff; }
+.badge-outline {
+  background: transparent; color: #aaa;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.banner-warnings {
+  font-size: 0.72rem; color: #555;
+  letter-spacing: 0.06em; margin-bottom: 28px;
+}
+.banner-actions { display: flex; gap: 12px; }
