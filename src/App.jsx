@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import InputForm from './components/InputForm'
 
 const TITLES = ["Drama", "Thriller", "Dark Comedy", "Mystery", "Crime Saga"]
 
