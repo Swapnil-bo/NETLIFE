@@ -300,3 +300,71 @@ body { background: var(--black); color: var(--text); overflow-x: hidden; }
   letter-spacing: 0.04em;
   padding-left: 2px;
 }
+
+/* ── Loading Screen ── */
+.loading-overlay {
+  position: fixed; inset: 0; z-index: 60;
+  background: rgba(0,0,0,0.92);
+  backdrop-filter: blur(16px);
+  display: flex; align-items: center; justify-content: center;
+  animation: fadeUp 0.4s ease both;
+}
+
+.loading-inner {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 28px;
+  text-align: center; padding: 24px;
+}
+
+/* Spinner */
+.loading-spinner {
+  position: relative;
+  width: 80px; height: 80px;
+  display: flex; align-items: center; justify-content: center;
+}
+.spinner-ring {
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  border-top-color: var(--red);
+  animation: spin 1s linear infinite;
+}
+.spinner-icon {
+  font-size: 1.8rem; z-index: 1;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.15); }
+}
+
+/* Message */
+.loading-msg {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem; letter-spacing: 0.08em;
+  color: var(--text);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  min-height: 2rem;
+}
+.msg-in  { opacity: 1; transform: translateY(0); }
+.msg-out { opacity: 0; transform: translateY(-8px); }
+
+/* Progress bar */
+.loading-bar {
+  width: 280px; height: 2px;
+  background: var(--border); border-radius: 2px;
+  overflow: hidden;
+}
+.loading-bar-fill {
+  height: 100%; width: 0%;
+  background: var(--red);
+  border-radius: 2px;
+  animation: fillBar 18s linear forwards;
+}
+@keyframes fillBar { from { width: 0%; } to { width: 90%; } }
+
+.loading-sub {
+  font-size: 0.75rem; color: var(--muted);
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
