@@ -368,3 +368,19 @@ body { background: var(--black); color: var(--text); overflow-x: hidden; }
   font-size: 0.75rem; color: var(--muted);
   letter-spacing: 0.1em; text-transform: uppercase;
 }
+
+/* ── Error Banner ── */
+.error-banner {
+  position: fixed; top: 80px; left: 50%; transform: translateX(-50%);
+  z-index: 200; background: #1a0000;
+  border: 1px solid rgba(229,9,20,0.4);
+  border-radius: 4px; padding: 12px 20px;
+  display: flex; align-items: center; gap: 16px;
+  font-size: 0.85rem; color: #ff6b6b;
+  box-shadow: 0 0 30px rgba(229,9,20,0.2);
+  max-width: 500px; width: 90%;
+}
+.error-banner button {
+  background: none; border: none;
+  color: #ff6b6b; cursor: pointer; font-size: 1rem;
+}
