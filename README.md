@@ -32,6 +32,30 @@ No cloud. No API keys. No subscription. No data leaving your device. Just you, a
 
 ---
 
+## 📸 Screenshots
+
+<img src="screenshots/1-landing.png" width="100%" />
+<br/><br/>
+
+<img src="screenshots/2-loading.png" width="100%" />
+<br/><br/>
+
+<img src="screenshots/3-form.png" width="100%" />
+<br/><br/>
+
+<img src="screenshots/4-banner.png" width="100%" />
+<br/><br/>
+
+<img src="screenshots/5-cast.png" width="100%" />
+<br/><br/>
+
+<img src="screenshots/6-episodes.png" width="100%" />
+<br/><br/>
+
+<img src="screenshots/7-myshows.png" width="100%" />
+
+---
+
 ## ✨ What Gets Generated
 
 Feed it your name, your job, your city, your biggest quirk, and one dramatic moment. What comes back is a **complete cinematic press kit**:
@@ -60,6 +84,8 @@ This isn't a form with a text dump. Every screen is designed to feel like you're
 **Loading Screen** — A full cinematic clapperboard with your name in the DIRECTOR slot. Live 24fps timecode. REC indicator. Production stage checklist. Animated progress glow.
 
 **Show Card** — A scrollable Netflix press kit. Protagonist card with spinning avatar ring. Three-column season arc. Episode guide with hover reveals. Screenplay-format trailer script with one-click copy.
+
+**My Shows Gallery** — Every show you've generated saved to localStorage. Persistent across sessions. View, browse or delete any past show instantly.
 
 ---
 
@@ -135,6 +161,15 @@ Open **[http://localhost:5173](http://localhost:5173)** and create your show. �
 ## 📁 Project Structure
 ```
 netflix-life-series/
+├── screenshots/
+│   ├── 1-landing.png
+│   ├── 2-loading.png
+│   ├── 3-form.png
+│   ├── 4-banner.png
+│   ├── 5-cast.png
+│   ├── 6-episodes.png
+│   └── 7-myshows.png
+│
 ├── src/
 │   ├── components/
 │   │   ├── InputForm.jsx       # Cinematic casting form (slides up from bottom)
@@ -150,7 +185,7 @@ netflix-life-series/
 │   ├── App.css                 # All styles (2000+ lines, god mode)
 │   └── main.jsx                # Entry point
 │
-├── .env.example                # Environment variable reference
+├── .env.example
 ├── tailwind.config.js
 └── vite.config.js
 ```
@@ -159,24 +194,29 @@ netflix-life-series/
 
 ## 🎭 Sample Output
 
-> *Input: AI Engineer, Chennai, debugs at 3am, quit job for AI startup*
+> *Input: AI Engineer, Kolkata, debugs at 3am, quit job for AI with no safety net*
 ```
-SHOW TITLE    →  "MIDNIGHT VISIONARY"
-TAGLINE       →  "Where the line between man and machine blurs."
-GENRE         →  Drama, Sci-Fi, Tech Thriller
-RATING        →  TV-MA
-CONTENT       →  Strong language, Thematic elements, Intense work stress
+SHOW TITLE    →  "QUANTUM DREAMS"
+TAGLINE       →  "Where humanity and AI intertwine in the dance of progress."
+GENRE         →  Sci-Fi Drama
+RATING        →  TV-14
+CONTENT       →  Strong language, Thematic elements
 
-EPISODE 01    →  "3am Revelations"
-EPISODE 02    →  "The Prodigal Son Returns"  
-EPISODE 03    →  "Rivalry Unleashed"
-...
-EPISODE 08    →  "A Future Unveiled"
+EPISODE 01    →  "Midnight Hour"
+EPISODE 02    →  "The Unveiling"
+EPISODE 03    →  "A Dangerous Alliance"
+EPISODE 04    →  "The Betrayal"
+EPISODE 05    →  "The Race for Progress"
+EPISODE 06    →  "A Question of Ethics"
+EPISODE 07    →  "The Showdown"
+EPISODE 08    →  "A New Beginning"
 
-TRAILER       →  "Deep in the heart of Chennai, one engineer works
-                  tirelessly — building the future with AI. But as he
-                  pushes technology to its limits, he risks losing
-                  everything that matters..."
+TRAILER       →  "In a city where dreams collide with technology,
+                  one man dares to push the boundaries of AI.
+                  But as corporate interests and personal turmoil
+                  threaten to tear him apart, will his obsession
+                  cost him everything he holds dear?
+                  Quantum Dreams — only on Netflix."
 ```
 
 ---
@@ -204,10 +244,10 @@ Combined with Ollama's `format: "json"` parameter, this achieves near-perfect st
 ## 🗺️ Roadmap
 
 - [x] Hero landing page with floating posters
-- [x] Cinematic input form
-- [x] Clapperboard loading screen
-- [x] Full Netflix press kit output
-- [x] My Shows gallery with localStorage
+- [x] Cinematic clapperboard loading screen
+- [x] Casting room input form
+- [x] Full Netflix press kit output card
+- [x] My Shows gallery with localStorage persistence
 - [x] God mode mobile responsive UI
 - [ ] Export show as PDF press kit
 - [ ] Share show as public link
